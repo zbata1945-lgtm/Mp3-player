@@ -1,4 +1,4 @@
-name: MP3 Player V5 APK
+name: Aura Music V6 APK
 
 on:
   push:
@@ -15,16 +15,14 @@ jobs:
       - name: Preuzmi projekat
         uses: actions/checkout@v4
 
-      - name: Raspakuj Aura Music V5
+      - name: Raspakuj Aura Music V6
         run: |
-          test -s MuzikaV5.txt
-          base64 --decode MuzikaV5.txt > aura-v5.zip
-          unzip -oq aura-v5.zip
-          test -f app/src/main/java/rs/musicflow/app/MainActivity.java
+          test -s MuzikaV6.txt
+          base64 --decode MuzikaV6.txt > aura-v6.zip
+          unzip -oq aura-v6.zip
+          test -f app/src/main/java/rs/musicflow/app/SmartMixEngine.java
           test -f app/src/main/java/rs/musicflow/app/AudioService.java
-          test -f app/src/main/java/rs/musicflow/app/MusicWidgetProvider.java
-          test -f app/src/main/res/xml/music_widget_info.xml
-          grep -q "audio.v5" app/build.gradle
+          grep -q "rs.musicflow.audio.v6" app/build.gradle
 
       - name: Java 17
         uses: actions/setup-java@v4
@@ -46,9 +44,9 @@ jobs:
       - name: Napravi APK
         run: gradle :app:assembleDebug --no-daemon --stacktrace
 
-      - name: APK za preuzimanje
+      - name: Sacuvaj APK
         uses: actions/upload-artifact@v4
         with:
-          name: MP3-Player-V5-APK
+          name: Aura-Music-V6-APK
           path: app/build/outputs/apk/debug/app-debug.apk
           if-no-files-found: error
