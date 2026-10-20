@@ -1,0 +1,37 @@
+MP3 PLAYER – RASPORED FAJLOVA ZA GITHUB
+
+Svi fajlovi su u JEDNOM folderu. Raspakujte ZIP pre postavljanja.
+Da bi Android aplikacija mogla da se napravi, svaki fajl mora na sledece mesto
+UNUTAR repozitorijuma Mp3-player:
+
+FAJL IZ OVOG FOLDERA           KONACNA PUTANJA NA GITHUB-U
+-----------------------------------------------------------
+README.md                      README.md
+gradle.properties              gradle.properties
+settings.gradle                settings.gradle
+build.gradle                   build.gradle
+gitignore.txt                  .gitignore   (PROMENITI IME)
+app_build.gradle               app/build.gradle   (PROMENITI IME)
+AndroidManifest.xml            app/src/main/AndroidManifest.xml
+MainActivity.java              app/src/main/java/rs/musicflow/app/MainActivity.java
+styles.xml                     app/src/main/res/values/styles.xml
+ic_musicflow.xml               app/src/main/res/drawable/ic_musicflow.xml
+android.yml                    .github/workflows/android.yml
+
+SAVET ZA TELEFON:
+U GitHub repozitorijumu otvorite Add file > Upload files, pa izaberite fajlove
+iz raspakovanog foldera. Fajlove koji pripadaju podfolderima treba smestiti u
+odgovarajucu putanju. Ako ste ih prvo otpremili u koren, mozete pojedinacno
+otvoriti fajl > Edit (olovka) i promeniti ime u njegovu punu relativnu putanju,
+na primer 'MainActivity.java' u 'app/src/main/java/rs/musicflow/app/MainActivity.java',
+pa sacuvati sa Commit changes. Ponoviti za svaki fajl po tabeli iznad.
+
+VAZNO:
+- GitHub NE raspakuje ZIP kada se on otpremi. ZIP prvo raspakujte na telefonu.
+- Fajl android.yml mora biti bas u .github/workflows/android.yml da bi Actions radio.
+- app_build.gradle na GitHub-u mora postati app/build.gradle.
+- gitignore.txt treba preimenovati u .gitignore (sa tackom na pocetku).
+- Kada je sve na svom mestu, otvorite Actions > Napravi MusicFlow APK.
+- Osnovna blokada reklamnih domena nije pouzdana zamena za Brave,
+  a reprodukcija u pozadini / zakljucan ekran nisu garantovani.
+- Projekat jos nije potvrden kao uspesno izgraden APK.
