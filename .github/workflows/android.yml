@@ -12,7 +12,7 @@ jobs:
       contents: read
 
     steps:
-      - name: Preuzmi repozitorijum
+      - name: Preuzmi projekat
         uses: actions/checkout@v4
 
       - name: Raspakuj MP3 Player V4
@@ -23,6 +23,16 @@ jobs:
 
           test -f app/src/main/java/rs/musicflow/app/MainActivity.java
           test -f app/src/main/java/rs/musicflow/app/AudioService.java
+
+      - name: Ispravi audio kompresor
+        run: |
+          FILE=app/src/main/java/rs/musicflow/app/AudioService.java
+
+          sed -i 's/config.setMbcBandAllChannelsTo(0, compressor);/DynamicsProcessing.Config ready = config.build(); ready.setMbcBandAllChannelsTo(0, compressor);/' "$FILE"
+
+          sed -i 's/dynamics = new DynamicsProcessing(0, audioSessionId, config.build());/dynamics = new DynamicsProcessing(0, audioSessionId, ready);/' "$FILE"
+
+          grep -q 'ready.setMbcBandAllChannelsTo(0, compressor)' "$FILE"
 
       - name: Instaliraj Java 17
         uses: actions/setup-java@v4
