@@ -1,4 +1,4 @@
-name: MP3 Player V4 APK
+name: MP3 Player V5 APK
 
 on:
   push:
@@ -15,50 +15,40 @@ jobs:
       - name: Preuzmi projekat
         uses: actions/checkout@v4
 
-      - name: Raspakuj MP3 Player V4
+      - name: Raspakuj Aura Music V5
         run: |
-          test -s MuzikaV4.txt
-          base64 --decode MuzikaV4.txt > v4.zip
-          unzip -oq v4.zip
-
+          test -s MuzikaV5.txt
+          base64 --decode MuzikaV5.txt > aura-v5.zip
+          unzip -oq aura-v5.zip
           test -f app/src/main/java/rs/musicflow/app/MainActivity.java
           test -f app/src/main/java/rs/musicflow/app/AudioService.java
+          test -f app/src/main/java/rs/musicflow/app/MusicWidgetProvider.java
+          test -f app/src/main/res/xml/music_widget_info.xml
+          grep -q "audio.v5" app/build.gradle
 
-      - name: Ispravi audio kompresor
-        run: |
-          FILE=app/src/main/java/rs/musicflow/app/AudioService.java
-
-          sed -i 's/config.setMbcBandAllChannelsTo(0, compressor);/DynamicsProcessing.Config ready = config.build(); ready.setMbcBandAllChannelsTo(0, compressor);/' "$FILE"
-
-          sed -i 's/dynamics = new DynamicsProcessing(0, audioSessionId, config.build());/dynamics = new DynamicsProcessing(0, audioSessionId, ready);/' "$FILE"
-
-          grep -q 'ready.setMbcBandAllChannelsTo(0, compressor)' "$FILE"
-
-      - name: Instaliraj Java 17
+      - name: Java 17
         uses: actions/setup-java@v4
         with:
           distribution: temurin
           java-version: '17'
 
-      - name: Instaliraj Android SDK
+      - name: Android SDK
         uses: android-actions/setup-android@v4
 
       - name: Instaliraj Android 35
-        run: |
-          sdkmanager 'platforms;android-35' 'build-tools;35.0.0'
+        run: sdkmanager 'platforms;android-35' 'build-tools;35.0.0'
 
-      - name: Instaliraj Gradle
+      - name: Gradle 8.13
         uses: gradle/actions/setup-gradle@v4
         with:
           gradle-version: '8.13'
 
-      - name: Napravi MP3 Player V4
-        run: |
-          gradle :app:assembleDebug --no-daemon --stacktrace
+      - name: Napravi APK
+        run: gradle :app:assembleDebug --no-daemon --stacktrace
 
-      - name: Sacuvaj APK
+      - name: APK za preuzimanje
         uses: actions/upload-artifact@v4
         with:
-          name: MP3-Player-V4-APK
+          name: MP3-Player-V5-APK
           path: app/build/outputs/apk/debug/app-debug.apk
           if-no-files-found: error
