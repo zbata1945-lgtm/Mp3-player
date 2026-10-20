@@ -17,10 +17,14 @@ jobs:
 
       - name: Raspakuj Aura Music V7
         run: |
-          test -s MuzikaV7.txt
-          base64 --decode MuzikaV7.txt > aura-v7.zip
+          test -s MuzikaV7-1.txt
+          base64 --decode MuzikaV7-1.txt > aura-v7.zip
           unzip -oq aura-v7.zip
+
           test -f app/src/main/java/rs/musicflow/app/LyricsRepository.java
+          test -f app/src/main/java/rs/musicflow/app/AudioService.java
+          test -f app/src/main/java/rs/musicflow/app/MainActivity.java
+
           grep -q 'rs.musicflow.audio.v7' app/build.gradle
 
       - name: Java 17
@@ -33,7 +37,8 @@ jobs:
         uses: android-actions/setup-android@v4
 
       - name: Instaliraj Android platformu
-        run: sdkmanager 'platforms;android-35' 'build-tools;35.0.0'
+        run: |
+          sdkmanager 'platforms;android-35' 'build-tools;35.0.0'
 
       - name: Gradle 8.13
         uses: gradle/actions/setup-gradle@v4
@@ -41,7 +46,8 @@ jobs:
           gradle-version: '8.13'
 
       - name: Kompajliraj V7
-        run: gradle :app:assembleDebug --no-daemon --stacktrace
+        run: |
+          gradle :app:assembleDebug --no-daemon --stacktrace
 
       - name: APK za telefon
         uses: actions/upload-artifact@v4
