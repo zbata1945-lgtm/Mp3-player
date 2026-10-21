@@ -1,0 +1,33 @@
+PASS: DJ limit <=35
+PASS: Seed song is first
+PASS: No duplicate songs
+PASS: Early mix favors artist variety
+PASS: Empty inputs are safe
+PASS: Local track excluded from online DJ
+Number of JSONObject instantiations in DJ max-candidate run: 2
+Time with mock/no-op JSON: 11.08 ms (NOT phone time)
+TOTAL PASSED: 6
+PASS: Empty favorites after install
+PASS: Add first favorite
+PASS: Favorite is persisted
+PASS: Toggle removes favorite
+PASS: Removed favorite absent
+PASS: Invalid track ignored
+PASS: Favorite cap of 180 respected
+PASS: Newest favorite retained
+PASS: Oldest favorite evicted at cap
+TOTAL PASSED: 9
+PASS: Exactly two JSON maps parsed, regardless of song count
+PASS: Preferences consulted only twice
+PASS: Favorites weigh more than moderate artist affinity
+PASS: History artist affinity is considered
+PASS: Unscored items placed after preferred items
+PASS: Original list is unchanged
+PASS: Ties preserve discovery order
+PASS: Empty list is safe
+PASS: 1000 results still parse exactly two JSON maps
+TOTAL PASSED: 9
+PASS: 37 UI IDs, XML syntax, exit flow and bounded DSP error handling
+OfflineStore.java: 6b101db98ff746e159e791afb8f0c5c879372b6b3c39654d1c7221f1ebab7926
+PhoneMusic.java: 538adddb8fab018ea14826bf8c98ec2dc013e377be146cbc0f3d7cf315da7491
+PASS: V12 performance safeguards and offline source byte identity
